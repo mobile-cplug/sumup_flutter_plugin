@@ -21,6 +21,8 @@ class SumupPluginCheckoutResponse {
     this.paymentType,
     this.entryMode,
     this.installments,
+    this.responseCode,
+    this.responseMessage,
   });
 
   SumupPluginCheckoutResponse.fromMap(Map<dynamic, dynamic> response) {
@@ -35,6 +37,10 @@ class SumupPluginCheckoutResponse {
     installments = int.tryParse(response['installments'].toString());
     cardType = response['cardType'];
     cardLastDigits = response['cardLastDigits'];
+
+    /// Include returning message
+    responseCode = response['responseCode'];
+    responseMessage = response['responseMessage'];
 
     // some parameters are available only for Android
     if (Platform.isAndroid) {
@@ -59,6 +65,10 @@ class SumupPluginCheckoutResponse {
   String? paymentType;
   String? entryMode;
   int? installments;
+
+  /// Include returning message
+  String? responseMessage;
+  int? responseCode;
 
   /// **Android only**
   bool? receiptSent;
