@@ -26,7 +26,7 @@ class SumupPluginCheckoutResponse {
   });
 
   SumupPluginCheckoutResponse.fromMap(Map<dynamic, dynamic> response) {
-    success = bool.tryParse(response['success']) ?? false;
+    success = response['success'];
     transactionCode = response['transactionCode'];
     amount = response['amount'];
     currency = response['currency'];
