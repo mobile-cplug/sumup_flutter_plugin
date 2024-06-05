@@ -26,6 +26,12 @@ class SumupPluginCheckoutResponse {
   });
 
   SumupPluginCheckoutResponse.fromMap(Map<dynamic, dynamic> response) {
+    if (response['success'] != null) {
+      success = bool.tryParse(response['success']) ?? false;
+    } else {
+      success = false;
+    }
+
     success = response['success'];
     transactionCode = response['transactionCode'];
     amount = response['amount'];
@@ -45,7 +51,9 @@ class SumupPluginCheckoutResponse {
     // some parameters are available only for Android
     if (Platform.isAndroid) {
       foreignTransactionId = response['foreignTransactionId'];
-      receiptSent = bool.tryParse(response['receiptSent']) ?? false;
+      if (response['receiptSent'] != null) {
+        receiptSent = bool.tryParse(response['receiptSent']) ?? false;
+      }
     }
   }
 

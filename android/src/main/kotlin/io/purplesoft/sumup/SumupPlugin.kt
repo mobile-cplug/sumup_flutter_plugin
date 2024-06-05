@@ -290,6 +290,7 @@ class SumupPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
                 "responseCode" to 400,
                 "responseMessage" to "Failed to get transaction info",
                 "requestCode" to requestCode,
+                "success" to false
             )
             currentOp.flutterResult()
         }
