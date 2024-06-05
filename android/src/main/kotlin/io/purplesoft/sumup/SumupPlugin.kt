@@ -252,13 +252,13 @@ class SumupPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
                     val txInfo: TransactionInfo? = extra.getParcelable(SumUpAPI.Response.TX_INFO)
 
                     currentOp.response.message = mutableMapOf(
-                            "responseCode" to resultCodeInt,
-                            "responseMessage" to resultMessage,
-                            "txCode" to txCode,
-                            "receiptSent" to receiptSent,
-                            "requestCode" to requestCode,
-                            "success" to resultCodeBoolean
-                            )
+                        "responseCode" to resultCodeInt,
+                        "responseMessage" to resultMessage,
+                        "txCode" to txCode,
+                        "receiptSent" to receiptSent,
+                        "requestCode" to requestCode,
+                        "success" to resultCodeBoolean
+                    )
 
                     txInfo?.toMap()?.let { currentOp.response.message.putAll(it) }
 
@@ -272,7 +272,7 @@ class SumupPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
                     currentOp.flutterResult()
                 }
             }
-          } else if (SumUpTask.valueOf(requestCode) == SumUpTask.SETTINGS) {
+        } else if (SumUpTask.valueOf(requestCode) == SumUpTask.SETTINGS) {
             currentOp.response.message = mutableMapOf("responseCode" to resultCode, "requestCode" to requestCode)
             currentOp.response.status = true
             currentOp.flutterResult()
@@ -284,7 +284,16 @@ class SumupPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
             currentOp.response.message = mutableMapOf("responseCode" to resultCode, "requestCode" to requestCode)
             currentOp.response.status = false
             currentOp.flutterResult()
-        } else {
+        }
+        else if (SumUpTask.valueOf(requestCode) == SumUpTask.CHECKOUT) {
+            currentOp.response.message = mutableMapOf(
+                "responseCode" to 400,
+                "responseMessage" to "Failed to get transaction info",
+                "requestCode" to requestCode,
+            )
+            currentOp.flutterResult()
+        }
+        else {
             currentOp.response.message = mutableMapOf("errors" to "Intent Data and/or Extras are null or empty")
             currentOp.response.status = false
         }
